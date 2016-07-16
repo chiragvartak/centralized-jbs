@@ -1,4 +1,8 @@
 def Gamma(user, bs):
+    """Given the user position list and the basestation position list, return
+    the intervals required for the DP algorithm."""
+    # Debugged to some extent
+
     G = {}
 
     n = len(user)
@@ -8,7 +12,7 @@ def Gamma(user, bs):
     i = j = 0
     G[0] = [0]
     while j < m:
-        if user[i] < bs[j]:
+        if i < len(user) and user[i] < bs[j]:
             G[j].append(i+1)
             i += 1
         else:
@@ -22,5 +26,4 @@ if __name__ == '__main__':
     user = [3, 5, 6, 9, 12]
     bs = [4, 7, 10]
     G = Gamma(user, bs)
-    from pprint import pprint
-    pprint(G)
+    print("Intervals:\n", G)
