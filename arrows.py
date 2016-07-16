@@ -1,8 +1,8 @@
 from intervals import Gamma
 from coloring import color
 
-user = [3, 5, 6, 9, 8, 8.5, 8.6, 8.7, 12]
-bs = [4, 7, 10, 13]
+user = [3, 5, 6, 9]
+bs = [4, 7, 10]
 intervals = Gamma(user, bs)
 
 n = len(user)
