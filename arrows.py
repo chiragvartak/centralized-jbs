@@ -1,7 +1,7 @@
 from intervals import Gamma
 from coloring import color
 
-user = [3, 5, 6, 9]
+user = [3, 5, 6, 9, 12]
 bs = [4, 7, 10]
 intervals = Gamma(user, bs)
 
@@ -30,27 +30,32 @@ def C(i, x, y, z):
 M = {}
 D = {}
 def X(a, b, c):
+    ans = None
     if a == 1 and b == 0:
-        return c
-    if a == 1 and b != 0:
+        ans = c
+    elif a == 1 and b != 0:
         print("Error!")
         import sys
         sys.exit(0)
-    if (a, b, c) in M:
-        return M[a, b, c]
+    elif (a, b, c) in M:
+        ans = M[a, b, c]
     else:
         # M[a, b, c] = min([max(X(a-1, x, b), C(a-1, x, b, c)) for x in G(a-2)])
 
         minx = 10000
         minVal = 10000
         for x in G(a-2):
-            if max(X(a-1, x, b), C(a-1, x, b, c)) < minVal:
-                minVal = max(X(a-1, x, b), C(a-1, x, b, c))
+            X_val = X(a-1, x, b)
+            if max(X_val, C(a-1, x, b, c)) < minVal:
+                minVal = max(X_val, C(a-1, x, b, c))
                 minx = x
         D[a-2] = x
         M[a, b, c] = minVal
 
-        return M[a, b, c]
+        ans = M[a, b, c]
+
+    print("a", a, "b", b, "c", c, "X", ans)
+    return ans
 
 def solve():
     # ans = min([X(m, x, n) for x in G(m-1)])
@@ -58,15 +63,19 @@ def solve():
     minx = 10000
     minX = 10000
     for x in G(m-1):
-        if X(m, x, n) < minX:
+        X_val = X(m, x, n)
+        if X_val < minX:
             # do something
-            minX = X(m, x, n)
+            minX = X_val
             minx = x
     D[m-1] = minx
 
     ans = minX
     print("colors: " + str(ans))
     print("DPs: " + str(D))
+    for i in range(1, m):
+        print("BS at posn", i, "serves users at", [u(i) for i in range(D[i-1]+1, D[i]+1)])
+    print("BS at posn", m, "serves users at", [u(i) for i in range(D[m-1]+1, n+1)])
 
 if __name__ == '__main__':
     # print(C(1, 0, 1, 4))
