@@ -50,7 +50,7 @@ def X(a, b, c):
             if max(X_val, C(a-1, x, b, c)) < minVal:
                 minVal = max(X_val, C(a-1, x, b, c))
                 minx = x
-        D[a-2] = x
+        D[a-2] = minx
         M[a, b, c] = minVal
 
         ans = M[a, b, c]
