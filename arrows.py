@@ -1,10 +1,10 @@
 from intervals import Gamma
 from coloring import color
 
-user = [3, 5, 6, 9, 12]
-bs = [4, 7, 10]
-intervals = Gamma(user, bs)
+user = [16, 20, 21, 22, 25]
+bs = [18, 23, 28]
 
+intervals = Gamma(user, bs)
 n = len(user)
 m = len(bs)
 
@@ -22,6 +22,7 @@ def arrow(bsp, usp):
     tail = 2 * bsp - usp
     return (tail, head)
 
+# Theoretical check done - working correctly
 def C(i, x, y, z):
     arrows = [arrow(b(i), u(j)) for j in range(x+1, y+1)]
     arrows.extend([arrow(b(i+1), u(j)) for j in range(y+1, z+1)])
@@ -74,8 +75,8 @@ def solve():
     print("colors: " + str(ans))
     print("DPs: " + str(D))
     for i in range(1, m):
-        print("BS at posn", i, "serves users at", [u(i) for i in range(D[i-1]+1, D[i]+1)])
-    print("BS at posn", m, "serves users at", [u(i) for i in range(D[m-1]+1, n+1)])
+        print("BS at posn", b(i), "serves users at", [u(i) for i in range(D[i-1]+1, D[i]+1)])
+    print("BS at posn", b(m), "serves users at", [u(i) for i in range(D[m-1]+1, n+1)])
 
 if __name__ == '__main__':
     # print(C(1, 0, 1, 4))
