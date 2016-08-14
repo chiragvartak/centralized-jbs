@@ -73,3 +73,24 @@ def generate_even(n, m, density=0.5, d=None):
     print("user:", user)
     print("Expected width:", 1.0*(m+n)/density)
     print("Actual width:", max(user[-1], bs[-1]) - min(user[0], bs[0]))
+
+# Check if every 2 BSs have a user in between them.
+def check(user, bs):
+    sorted_user = sorted(user)
+    sorted_bs = sorted(bs)
+    valid = True
+    bs1 = -1
+    bs2 = -1
+    for j in range(len(sorted_bs) - 1):
+        for u in sorted_user:
+            if u > sorted_bs[j] and u < sorted_bs[j+1]:
+                break
+            if u == sorted_user[-1]:
+                valid = False
+                bs1, bs2 = sorted_bs[j], sorted_bs[j+1]
+
+    if valid == True:
+        print("The given users and bss are VALID.")
+    else:
+        print("The given users and bss are INVALID.")
+        print("There are no users between basestations " + str(bs1) + " and " + str(bs2) + " .")
