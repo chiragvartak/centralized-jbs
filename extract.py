@@ -1,6 +1,8 @@
+"""Read problems from the file 'problem-instances/problem-instances-intermediate' and convert them to a form that can be used by Dipankar's XML generator."""
+
 import sys
 
-f = open(".problem-instances.txt", 'r')
+f = open("problem-instances/problem-instances-intermediate.txt", 'r')
 
 line = f.readline()
 while line:
@@ -20,4 +22,3 @@ while line:
     line = f.readline()
 
 f.close()
-

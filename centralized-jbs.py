@@ -1,6 +1,9 @@
+"""Solve the JBS problem using the Centralized Algorithm based on Dynamic Programming."""
+
 from intervals import Gamma
 from coloring import color
 
+# Input the user list and the basestation list here.
 user = [3, 6, 7, 9, 12]
 bs = [2, 5, 8, 11, 14]
 

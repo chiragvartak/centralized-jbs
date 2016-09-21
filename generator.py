@@ -1,6 +1,13 @@
+"""Has some utilities that help in generating problem instances and checking if
+a problem instance is valid."""
+
 from random import random, randint
 
 def generate(n, m, density=0.5):
+    """Generate a JBS problem instance with 'n' users and 'm' basestations.
+    Specify the value of 'density' in the range (0, 1]; default is 0.5.
+    More the density, more crowded are the users and basestations."""
+    
     user = []
     bs = []
 
@@ -17,7 +24,6 @@ def generate(n, m, density=0.5):
     while done == False:
         # Generate a random number in (0.0, 1.0]
         rand = 1 - random()
-        # print("rand:", rand)
         if rand < pn:
             i += 1
             continue
@@ -40,6 +46,10 @@ def generate(n, m, density=0.5):
     print("Actual width:", max(user[-1], bs[-1]) - min(user[0], bs[0]))
 
 def generate_even(n, m, density=0.5, d=None):
+    """Generate a JBS problem instance with 'n' users and 'm' basestations, such that the basestations are evenly placed.
+    Specify the value of 'density' in the range (0, 1]; default is 0.5.
+    More the density, more crowded are the users and basestations."""
+    
     user = []
     bs = []
 
@@ -76,6 +86,9 @@ def generate_even(n, m, density=0.5, d=None):
 
 # Check if every 2 BSs have a user in between them.
 def check(user, bs):
+    """Given a problem instance (a user list and a basestation list),
+    check if this is such a problem instance where every two basestations have a user in between them."""
+
     sorted_user = sorted(user)
     sorted_bs = sorted(bs)
     valid = True

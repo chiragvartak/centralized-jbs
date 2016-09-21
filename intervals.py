@@ -1,6 +1,6 @@
 def Gamma(user, bs):
     """Given the user position list and the basestation position list, return
-    the intervals required for the DP algorithm."""
+    the intervals required for the Centralized JBS algorithm."""
     # Debugged to some extent
 
     G = {}

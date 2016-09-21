@@ -1,3 +1,5 @@
+# Results of the problem instances solved by using the Centralized JBS algorithm
+
 #0
 colors: 2
 29 ms
