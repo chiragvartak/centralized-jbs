@@ -1,0 +1,26 @@
+Problem 1: avg time - 15-17ms fastest - 7ms
+var `agent9bs' = 7
+var `agent5bs' = 4
+var `agent6bs' = 7
+var `agent5r' = 1
+var `agent6r' = 1
+var `agent3bs' = 4
+var `agent9r' = 2
+var `agent3r' = 2
+var `agent12bs' = 10
+var `agent12r' = 1
+Total optimal cost: 7
+
+Problem 2: avg time - 22-25ms fastest - 17ms
+var `agent22bs' = 23
+var `agent21bs' = 23
+var `agent20bs' = 18
+var `agent22r' = 1
+var `agent21r' = 2
+var `agent20r' = 1
+var `agent25bs' = 28
+var `agent25r' = 1
+var `agent16bs' = 18
+var `agent16r' = 2
+Total optimal cost: 7
+

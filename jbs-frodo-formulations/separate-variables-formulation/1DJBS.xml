@@ -1,0 +1,301 @@
+<instance>
+    <presentation name="JBSProblem" maxConstraintArity="4" maximize="false" format="XCSP 2.1_FRODO" />
+
+    <agents nbAgents="10">
+        <agent name="agent26" />
+        <agent name="agent27" />
+        <agent name="agent28" />
+        <agent name="agent33" />
+        <agent name="agent37" />
+        <agent name="agent38" />
+        <agent name="agent41" />
+        <agent name="agent43" />
+        <agent name="agent45" />
+        <agent name="agent47" />
+    </agents>
+
+    <domains nbDomains="11">
+        <domain name="basestation26" nbValues="1">32</domain>
+        <domain name="basestation27" nbValues="1">32</domain>
+        <domain name="basestation28" nbValues="1">32</domain>
+        <domain name="basestation33" nbValues="2">32 40</domain>
+        <domain name="basestation37" nbValues="2">32 40</domain>
+        <domain name="basestation38" nbValues="2">32 40</domain>
+        <domain name="basestation41" nbValues="2">40 48</domain>
+        <domain name="basestation43" nbValues="2">40 48</domain>
+        <domain name="basestation45" nbValues="2">40 48</domain>
+        <domain name="basestation47" nbValues="2">40 48</domain>
+        <domain name="rounds" nbValues="11">1 2 3 4 5 6 7 8 9 10 11</domain>
+    </domains>
+
+    <variables nbVariables="20">
+        <variable name="agent26bs" domain="basestation26" agent="agent26" />
+        <variable name="agent26r" domain="rounds" agent="agent26" />
+        <variable name="agent27bs" domain="basestation27" agent="agent27" />
+        <variable name="agent27r" domain="rounds" agent="agent27" />
+        <variable name="agent28bs" domain="basestation28" agent="agent28" />
+        <variable name="agent28r" domain="rounds" agent="agent28" />
+        <variable name="agent33bs" domain="basestation33" agent="agent33" />
+        <variable name="agent33r" domain="rounds" agent="agent33" />
+        <variable name="agent37bs" domain="basestation37" agent="agent37" />
+        <variable name="agent37r" domain="rounds" agent="agent37" />
+        <variable name="agent38bs" domain="basestation38" agent="agent38" />
+        <variable name="agent38r" domain="rounds" agent="agent38" />
+        <variable name="agent41bs" domain="basestation41" agent="agent41" />
+        <variable name="agent41r" domain="rounds" agent="agent41" />
+        <variable name="agent43bs" domain="basestation43" agent="agent43" />
+        <variable name="agent43r" domain="rounds" agent="agent43" />
+        <variable name="agent45bs" domain="basestation45" agent="agent45" />
+        <variable name="agent45r" domain="rounds" agent="agent45" />
+        <variable name="agent47bs" domain="basestation47" agent="agent47" />
+        <variable name="agent47r" domain="rounds" agent="agent47" />
+    </variables>
+
+    <relations nbRelations="1">
+        <relation name="COST" arity="1" nbTuples="11" semantics="soft" defaultCost="infinity">
+            1: 1 | 2: 2 | 3: 3 | 4: 4 | 5: 5 | 6: 6 | 7: 7 | 8: 8 | 9: 9 | 10: 10 | 11: 11
+        </relation>
+    </relations>
+
+    <predicates nbPredicates="2">
+        <predicate name="NEQ">
+            <parameters> int X1 int X2 int Y1 int Y2 </parameters>
+            <expression>
+                <functional> or( ne(Y1, Y2), ne(X1, X2) ) </functional>
+            </expression>
+        </predicate>
+        <predicate name="ISCOLLIDE">
+            <parameters> int X1 int X2 int Y1 int Y2 int Z1 int Z2 </parameters>
+            <expression>
+                <functional> or( ne(X1, X2), or( ne(Y1, Z1), ne(Y2, Z2) ) ) </functional>
+            </expression>
+        </predicate>
+    </predicates>
+
+    <constraints nbConstraints="77">
+        <!-- Cost of each round assignment -->
+        <constraint name="agent26_cost" arity="1" scope="agent26r" reference="COST" />
+        <constraint name="agent27_cost" arity="1" scope="agent27r" reference="COST" />
+        <constraint name="agent28_cost" arity="1" scope="agent28r" reference="COST" />
+        <constraint name="agent33_cost" arity="1" scope="agent33r" reference="COST" />
+        <constraint name="agent37_cost" arity="1" scope="agent37r" reference="COST" />
+        <constraint name="agent38_cost" arity="1" scope="agent38r" reference="COST" />
+        <constraint name="agent41_cost" arity="1" scope="agent41r" reference="COST" />
+        <constraint name="agent43_cost" arity="1" scope="agent43r" reference="COST" />
+        <constraint name="agent45_cost" arity="1" scope="agent45r" reference="COST" />
+        <constraint name="agent47_cost" arity="1" scope="agent47r" reference="COST" />
+        <!-- If same round, then can't have same BS -->
+        <constraint name="agent26_and_agent27_have_different_bs_if_in_same_round" arity="4" scope="agent26bs agent27bs agent26r agent27r" reference="NEQ" >
+            <parameters> agent26bs agent27bs agent26r agent27r </parameters>
+        </constraint>
+        <constraint name="agent26_and_agent28_have_different_bs_if_in_same_round" arity="4" scope="agent26bs agent28bs agent26r agent28r" reference="NEQ" >
+            <parameters> agent26bs agent28bs agent26r agent28r </parameters>
+        </constraint>
+        <constraint name="agent27_and_agent28_have_different_bs_if_in_same_round" arity="4" scope="agent27bs agent28bs agent27r agent28r" reference="NEQ" >
+            <parameters> agent27bs agent28bs agent27r agent28r </parameters>
+        </constraint>
+        <constraint name="agent26_and_agent33_have_different_bs_if_in_same_round" arity="4" scope="agent26bs agent33bs agent26r agent33r" reference="NEQ" >
+            <parameters> agent26bs agent33bs agent26r agent33r </parameters>
+        </constraint>
+        <constraint name="agent26_and_agent37_have_different_bs_if_in_same_round" arity="4" scope="agent26bs agent37bs agent26r agent37r" reference="NEQ" >
+            <parameters> agent26bs agent37bs agent26r agent37r </parameters>
+        </constraint>
+        <constraint name="agent26_and_agent38_have_different_bs_if_in_same_round" arity="4" scope="agent26bs agent38bs agent26r agent38r" reference="NEQ" >
+            <parameters> agent26bs agent38bs agent26r agent38r </parameters>
+        </constraint>
+        <constraint name="agent27_and_agent33_have_different_bs_if_in_same_round" arity="4" scope="agent27bs agent33bs agent27r agent33r" reference="NEQ" >
+            <parameters> agent27bs agent33bs agent27r agent33r </parameters>
+        </constraint>
+        <constraint name="agent27_and_agent37_have_different_bs_if_in_same_round" arity="4" scope="agent27bs agent37bs agent27r agent37r" reference="NEQ" >
+            <parameters> agent27bs agent37bs agent27r agent37r </parameters>
+        </constraint>
+        <constraint name="agent27_and_agent38_have_different_bs_if_in_same_round" arity="4" scope="agent27bs agent38bs agent27r agent38r" reference="NEQ" >
+            <parameters> agent27bs agent38bs agent27r agent38r </parameters>
+        </constraint>
+        <constraint name="agent28_and_agent33_have_different_bs_if_in_same_round" arity="4" scope="agent28bs agent33bs agent28r agent33r" reference="NEQ" >
+            <parameters> agent28bs agent33bs agent28r agent33r </parameters>
+        </constraint>
+        <constraint name="agent28_and_agent37_have_different_bs_if_in_same_round" arity="4" scope="agent28bs agent37bs agent28r agent37r" reference="NEQ" >
+            <parameters> agent28bs agent37bs agent28r agent37r </parameters>
+        </constraint>
+        <constraint name="agent28_and_agent38_have_different_bs_if_in_same_round" arity="4" scope="agent28bs agent38bs agent28r agent38r" reference="NEQ" >
+            <parameters> agent28bs agent38bs agent28r agent38r </parameters>
+        </constraint>
+        <constraint name="agent33_and_agent37_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent37bs agent33r agent37r" reference="NEQ" >
+            <parameters> agent33bs agent37bs agent33r agent37r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent33_and_agent37_don't_collide" arity="4" scope="agent33r agent37r agent33bs agent37bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent37r agent33bs agent37bs 40 32 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent38_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent38bs agent33r agent38r" reference="NEQ" >
+            <parameters> agent33bs agent38bs agent33r agent38r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent33_and_agent38_don't_collide" arity="4" scope="agent33r agent38r agent33bs agent38bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent38r agent33bs agent38bs 40 32 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent38_have_different_bs_if_in_same_round" arity="4" scope="agent37bs agent38bs agent37r agent38r" reference="NEQ" >
+            <parameters> agent37bs agent38bs agent37r agent38r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent37_and_agent38_don't_collide" arity="4" scope="agent37r agent38r agent37bs agent38bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent38r agent37bs agent38bs 40 32 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent41_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent41bs agent33r agent41r" reference="NEQ" >
+            <parameters> agent33bs agent41bs agent33r agent41r </parameters>
+        </constraint>
+        <constraint name="agent33_and_agent43_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent43bs agent33r agent43r" reference="NEQ" >
+            <parameters> agent33bs agent43bs agent33r agent43r </parameters>
+        </constraint>
+        <constraint name="agent33_and_agent45_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent45bs agent33r agent45r" reference="NEQ" >
+            <parameters> agent33bs agent45bs agent33r agent45r </parameters>
+        </constraint>
+        <constraint name="agent33_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent33bs agent47bs agent33r agent47r" reference="NEQ" >
+            <parameters> agent33bs agent47bs agent33r agent47r </parameters>
+        </constraint>
+        <constraint name="agent37_and_agent41_have_different_bs_if_in_same_round" arity="4" scope="agent37bs agent41bs agent37r agent41r" reference="NEQ" >
+            <parameters> agent37bs agent41bs agent37r agent41r </parameters>
+        </constraint>
+        <constraint name="agent37_and_agent43_have_different_bs_if_in_same_round" arity="4" scope="agent37bs agent43bs agent37r agent43r" reference="NEQ" >
+            <parameters> agent37bs agent43bs agent37r agent43r </parameters>
+        </constraint>
+        <constraint name="agent37_and_agent45_have_different_bs_if_in_same_round" arity="4" scope="agent37bs agent45bs agent37r agent45r" reference="NEQ" >
+            <parameters> agent37bs agent45bs agent37r agent45r </parameters>
+        </constraint>
+        <constraint name="agent37_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent37bs agent47bs agent37r agent47r" reference="NEQ" >
+            <parameters> agent37bs agent47bs agent37r agent47r </parameters>
+        </constraint>
+        <constraint name="agent38_and_agent41_have_different_bs_if_in_same_round" arity="4" scope="agent38bs agent41bs agent38r agent41r" reference="NEQ" >
+            <parameters> agent38bs agent41bs agent38r agent41r </parameters>
+        </constraint>
+        <constraint name="agent38_and_agent43_have_different_bs_if_in_same_round" arity="4" scope="agent38bs agent43bs agent38r agent43r" reference="NEQ" >
+            <parameters> agent38bs agent43bs agent38r agent43r </parameters>
+        </constraint>
+        <constraint name="agent38_and_agent45_have_different_bs_if_in_same_round" arity="4" scope="agent38bs agent45bs agent38r agent45r" reference="NEQ" >
+            <parameters> agent38bs agent45bs agent38r agent45r </parameters>
+        </constraint>
+        <constraint name="agent38_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent38bs agent47bs agent38r agent47r" reference="NEQ" >
+            <parameters> agent38bs agent47bs agent38r agent47r </parameters>
+        </constraint>
+        <constraint name="agent41_and_agent43_have_different_bs_if_in_same_round" arity="4" scope="agent41bs agent43bs agent41r agent43r" reference="NEQ" >
+            <parameters> agent41bs agent43bs agent41r agent43r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent41_and_agent43_don't_collide" arity="4" scope="agent41r agent43r agent41bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent41r agent43r agent41bs agent43bs 48 40 </parameters>  
+        </constraint>
+        <constraint name="agent41_and_agent45_have_different_bs_if_in_same_round" arity="4" scope="agent41bs agent45bs agent41r agent45r" reference="NEQ" >
+            <parameters> agent41bs agent45bs agent41r agent45r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent41_and_agent45_don't_collide" arity="4" scope="agent41r agent45r agent41bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent41r agent45r agent41bs agent45bs 48 40 </parameters>  
+        </constraint>
+        <constraint name="agent41_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent41bs agent47bs agent41r agent47r" reference="NEQ" >
+            <parameters> agent41bs agent47bs agent41r agent47r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent41_and_agent47_don't_collide" arity="4" scope="agent41r agent47r agent41bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent41r agent47r agent41bs agent47bs 48 40 </parameters>  
+        </constraint>
+        <constraint name="agent43_and_agent45_have_different_bs_if_in_same_round" arity="4" scope="agent43bs agent45bs agent43r agent45r" reference="NEQ" >
+            <parameters> agent43bs agent45bs agent43r agent45r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent43_and_agent45_don't_collide" arity="4" scope="agent43r agent45r agent43bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent43r agent45r agent43bs agent45bs 48 40 </parameters>  
+        </constraint>
+        <constraint name="agent43_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent43bs agent47bs agent43r agent47r" reference="NEQ" >
+            <parameters> agent43bs agent47bs agent43r agent47r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent43_and_agent47_don't_collide" arity="4" scope="agent43r agent47r agent43bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent43r agent47r agent43bs agent47bs 48 40 </parameters>  
+        </constraint>
+        <constraint name="agent45_and_agent47_have_different_bs_if_in_same_round" arity="4" scope="agent45bs agent47bs agent45r agent47r" reference="NEQ" >
+            <parameters> agent45bs agent47bs agent45r agent47r </parameters>
+        </constraint>
+        <!-- The following constraint is part of IsCollide -->
+        <constraint name="agent45_and_agent47_don't_collide" arity="4" scope="agent45r agent47r agent45bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent45r agent47r agent45bs agent47bs 48 40 </parameters>  
+        </constraint>
+        <!-- IsCollide -->
+        <constraint name="agent26_and_agent33_don't_collide_8414" arity="4" scope="agent26r agent33r agent26bs agent33bs" reference="ISCOLLIDE" >
+            <parameters> agent26r agent33r agent26bs agent33bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent27_and_agent33_don't_collide_6483" arity="4" scope="agent27r agent33r agent27bs agent33bs" reference="ISCOLLIDE" >
+            <parameters> agent27r agent33r agent27bs agent33bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent28_and_agent33_don't_collide_8837" arity="4" scope="agent28r agent33r agent28bs agent33bs" reference="ISCOLLIDE" >
+            <parameters> agent28r agent33r agent28bs agent33bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent47_don't_collide_187" arity="4" scope="agent33r agent47r agent33bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent47r agent33bs agent47bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent26_and_agent37_don't_collide_1920" arity="4" scope="agent26r agent37r agent26bs agent37bs" reference="ISCOLLIDE" >
+            <parameters> agent26r agent37r agent26bs agent37bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent27_and_agent37_don't_collide_1478" arity="4" scope="agent27r agent37r agent27bs agent37bs" reference="ISCOLLIDE" >
+            <parameters> agent27r agent37r agent27bs agent37bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent43_don't_collide_5019" arity="4" scope="agent37r agent43r agent37bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent43r agent37bs agent43bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent45_don't_collide_1320" arity="4" scope="agent37r agent45r agent37bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent45r agent37bs agent45bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent47_don't_collide_3377" arity="4" scope="agent37r agent47r agent37bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent47r agent37bs agent47bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent26_and_agent38_don't_collide_3644" arity="4" scope="agent26r agent38r agent26bs agent38bs" reference="ISCOLLIDE" >
+            <parameters> agent26r agent38r agent26bs agent38bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent43_don't_collide_2654" arity="4" scope="agent38r agent43r agent38bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent43r agent38bs agent43bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent45_don't_collide_3347" arity="4" scope="agent38r agent45r agent38bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent45r agent38bs agent45bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent47_don't_collide_179" arity="4" scope="agent38r agent47r agent38bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent47r agent38bs agent47bs 32 40 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent41_don't_collide_5770" arity="4" scope="agent33r agent41r agent33bs agent41bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent41r agent33bs agent41bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent41_don't_collide_149" arity="4" scope="agent37r agent41r agent37bs agent41bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent41r agent37bs agent41bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent41_don't_collide_2636" arity="4" scope="agent38r agent41r agent38bs agent41bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent41r agent38bs agent41bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent43_don't_collide_3252" arity="4" scope="agent33r agent43r agent33bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent43r agent33bs agent43bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent43_don't_collide_4134" arity="4" scope="agent37r agent43r agent37bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent43r agent37bs agent43bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent43_don't_collide_8812" arity="4" scope="agent38r agent43r agent38bs agent43bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent43r agent38bs agent43bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent45_don't_collide_3572" arity="4" scope="agent33r agent45r agent33bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent45r agent33bs agent45bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent45_don't_collide_2624" arity="4" scope="agent37r agent45r agent37bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent45r agent37bs agent45bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent45_don't_collide_4810" arity="4" scope="agent38r agent45r agent38bs agent45bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent45r agent38bs agent45bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent33_and_agent47_don't_collide_1393" arity="4" scope="agent33r agent47r agent33bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent33r agent47r agent33bs agent47bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent37_and_agent47_don't_collide_2925" arity="4" scope="agent37r agent47r agent37bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent37r agent47r agent37bs agent47bs 56 64 </parameters>  
+        </constraint>
+        <constraint name="agent38_and_agent47_don't_collide_969" arity="4" scope="agent38r agent47r agent38bs agent47bs" reference="ISCOLLIDE" >
+            <parameters> agent38r agent47r agent38bs agent47bs 56 64 </parameters>  
+        </constraint>
+    </constraints>
+
+</instance>
